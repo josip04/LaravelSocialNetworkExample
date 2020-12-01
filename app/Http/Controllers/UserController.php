@@ -52,7 +52,7 @@ class UserController extends Controller
         $this->authorize('view',$user);
 
         return response()->json([
-            'user' => $user//$request->user()
+            'user' => $user
         ]);
     }
 
@@ -84,7 +84,7 @@ class UserController extends Controller
         }
 
 
-        $user->update([ //vrača true ili false a ne $user object (metoda se zove nad objectom i vrača rezultat metode), posebno se mora vratiti object 
+        $user->update([
              'name' => $request->name,
              'email' => $request->email,
              //'avatar' => isset($request->avatar) ? $request->image->store('avatars') : 'avatars/'.$request->avatar,
