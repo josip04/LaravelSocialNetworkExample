@@ -21,11 +21,13 @@ class LikeController extends Controller
         ]);
     }
 
-    public function store(Posts $post){
+    public function like(Posts $post){
         $post->like();
     }
-
-    public function destroy(Posts $post){
-        $post->unlike();
+    public function dislike(Posts $post){
+        $post->dislike();
+    }
+    public function destroyLike(Posts $post){
+        $post->removeLike();
     }
 }

@@ -41,12 +41,12 @@ Route::middleware('auth:api')->group(function($router){
     Route::delete('/posts/{post}/comments/{comment}',[CommentsController::class,'destroy'])->middleware('can:delete,comment');
 
 
-    //DODATI RUTE ZA LIKE I DISLIKE
+    
     Route::get('/posts/{post}/likes',[LikeController::class,'index']);
-    Route::post('/posts/{post}/like',[LikeController::class,'store']);//like
-    Route::delete('/posts/{post}/unlike',[LikeController::class,'destroy']);//unlike
-    //Route::delete('/posts/{post}/dislike',[LikeController::class,'dislike']); 
-     //Route::delete('/posts/{post}/undislike',[LikeController::class,'undislike']);
+    Route::post('/posts/{post}/like',[LikeController::class,'like']);//like
+    Route::post('/posts/{post}/dislike',[LikeController::class,'dislike']); //dislike
+    Route::delete('/posts/{post}/like',[LikeController::class,'destroyLike']);//unlike
+    Route::delete('/posts/{post}/dislike',[LikeController::class,'destroyLike']);//undislike
 });
 
 
