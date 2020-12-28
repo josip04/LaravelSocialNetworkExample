@@ -85,21 +85,16 @@ class CommentsController extends Controller
     public function update(CommentRequest $request,Posts $post,Comments $comment)
     {
         $this->authorize('update',$comment);
-        $request->validated();
+        $comment = $request->validated();
         
 
         if($request->image){
             $comment->image = $request->image;
         }
 
-        $comment->update([
-            'comment' => $request->comment
-        ]);
+        $comment->update($comment);
 
-        return response()->json([
-            'comment' => $comment,
-            //'image' => isset($request->image) ? $request->image->store('comments') : 'images/'.$request->image,
-        ]);
+        return response()->json($comment);
     }
 
     /**

@@ -32,12 +32,7 @@ class AuthController extends Controller
      */
     public function login(UserLoginRequest $request)
     {
-        $request->validated();
-
-        if (! $token = auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-            ])){
+        if (! $token = auth()->attempt( $request->validated() )){
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -67,7 +62,7 @@ class AuthController extends Controller
 
     
     public function recovery(RecoveryPassRequest $request){
-        $user = User::firstWhere('email','josip.suvak04@gmail.com');
+        $user = User::firstWhere('email',$request->email);
 
         /* docs
         $status = Password::sendResetLink(

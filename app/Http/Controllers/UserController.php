@@ -77,22 +77,14 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $this->authorize('update',$user);
-        $request->validated();
+        $user = $request->validated();
 
         if($request->avatar){
             $user->avatar = $request->avatar;
         }
-
-
-        $user->update([
-             'name' => $request->name,
-             'email' => $request->email,
-             //'avatar' => isset($request->avatar) ? $request->image->store('avatars') : 'avatars/'.$request->avatar,
-             'password' => bcrypt($request->password)
-        ]);
-        return response()->json([
-            'user' => $user
-        ]);
+        $user->update($user);
+        
+        return response()->json($user);
     }   
 
     /**

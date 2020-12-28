@@ -21,9 +21,10 @@ use App\Http\Controllers\UserController;
     
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class, 'register']);
-Route::post('/recovery/{token}',[AuthController::class,'recovery']);//password reset
+
 Route::post('/recovery',[AuthController::class,'recovery']);
-//Route::post('recovery',[AuthController::class,'new_passowrd']);
+//Route::put('/recovery/{token}',[AuthController::class,'update']);
+
 
 
 Route::middleware('auth:api')->group(function($router){

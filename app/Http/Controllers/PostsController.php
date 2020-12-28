@@ -83,7 +83,7 @@ class PostsController extends Controller
      * @param  \App\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Posts $post) //dodati form req validation 
+    public function update(PostRequest $request, Posts $post) 
     {
         
         $this->authorize('update',$post);
