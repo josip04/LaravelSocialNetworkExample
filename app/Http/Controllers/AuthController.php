@@ -1,10 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
+use DB;
+use Str;
+use Mail;
+use Carbon;
 use App\User;
+use App\Mail\PasswordReset;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\RecoveryPassRequest;
 //use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -16,7 +22,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        //$this->middleware('auth:api', ['except' => ['login','register','recovery']]);
     }
 
     /**
@@ -57,6 +63,40 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+
+    
+    public function recovery(RecoveryPassRequest $request){
+        $user = User::firstWhere('email','josip.suvak04@gmail.com');
+
+        /* docs
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+        */
+
+
+        if($user){
+            DB::table('password_resets')->insert([
+                'email' => $request->email,
+                'token' => Str::random(60),
+                'created_at' => Carbon::now()
+            ]);
+            $data = DB::table('password_resets')->where('email', $request->email)->first();
+            Mail::to($request->email)->send(new PasswordReset($data->token));
+        }
+        
+        /*
+        Mail::raw('It works!',function($message){
+            $message->from(config('admin.admin_email'))
+                    ->to('email@example.com')
+                    ->subject('Recovery password request');
+        });
+        */
+     
+        return response()->json([
+            'message' => 'Email sent!'
+        ]);
     }
 
 

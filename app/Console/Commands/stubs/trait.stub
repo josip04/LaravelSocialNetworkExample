@@ -1,0 +1,7 @@
+<?
+phpnamespace DummyNamespace;
+
+trait DummyClass
+{
+    //
+}
