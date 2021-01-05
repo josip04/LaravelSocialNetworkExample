@@ -10,6 +10,12 @@ class PostsPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability){
+        if ($user->isSuperAdmin($user)){
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any posts.
      *
@@ -41,7 +47,7 @@ class PostsPolicy
      */
     public function create(User $user)
     {
-        if($user || $user->is_admin) return true;
+        //if($user || $user->is_admin) return true;
     }
 
     /**
@@ -53,7 +59,6 @@ class PostsPolicy
      */
     public function update(User $user, Posts $post)
     {  
-        if($user->is_admin) return true;
         return $post->author->is($user);
     }
 
@@ -66,7 +71,6 @@ class PostsPolicy
      */
     public function delete(User $user,Posts $post)
     {
-        if($user->is_admin) return true;
         return $post->author->is($user);
     }
 

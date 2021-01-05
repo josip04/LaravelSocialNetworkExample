@@ -36,6 +36,9 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function isSuperAdmin($user = null){
+        return $user->is_admin;
+    }
 
     public function posts(){
         return $this->hasMany(Posts::class);
@@ -46,6 +49,7 @@ class User extends Authenticatable implements JWTSubject
     public function likes(){
         return $this->hasMany(Like::class);
     }
+
     public function getJWTIdentifier(){
         return $this->getKey();
     }

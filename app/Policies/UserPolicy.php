@@ -9,6 +9,12 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user,$ability){
+        if($user->isSuperAdmin($user)){
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -29,7 +35,7 @@ class UserPolicy
      */
     public function view(User $user/*,User $model*/)
     {
-        if($user || $user->is_admin) return true;
+        /*if($user || $user->is_admin)*/ return true;
     }
 
     /**
@@ -50,9 +56,9 @@ class UserPolicy
      * @param  \App\User  $model
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user/*, User $model*/)
     {
-        if($user || $user->is_admin) return true;
+        /*if($user || $user->is_admin)*/ return true;
     }
 
     /**
@@ -64,7 +70,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if($user || $user->is_admin) return true;
+        //if($user || $user->is_admin) return true;
     }
 
     /**
@@ -88,6 +94,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        if($user->is_admin) return true;
+        //if($user->is_admin) return true;
     }
 }
