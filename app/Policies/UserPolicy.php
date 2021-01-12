@@ -23,7 +23,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //if($user->is_admin) return true;
+        
     }
 
     /**

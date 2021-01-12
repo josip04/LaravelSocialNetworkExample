@@ -9,9 +9,9 @@ class Comments extends Model
     protected $fillable = ['user_id','post_id','comment','image'];
 
     public function user(){//commentOwner
-        return $this->belongsTo(User::class,'user_id');
+    return $this->belongsTo(User::class/*,'user_id'*/);
     }
     public function post(){
-        return $this->belongsTo(Posts::class,'post_id');
+    return $this->belongsTo(Posts::class/*,'post_id'*/);
     }
 }
