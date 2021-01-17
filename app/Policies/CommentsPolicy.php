@@ -10,6 +10,12 @@ class CommentsPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability){
+        if ($user->isSuperAdmin($user)){
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any comments.
      *
@@ -41,7 +47,7 @@ class CommentsPolicy
      */
     public function create(User $user)
     {
-        if($user || $user->is_admin) return true;
+        return true;
     }
 
     /**
@@ -53,7 +59,6 @@ class CommentsPolicy
      */
     public function update(User $user, Comments $comment)
     {
-        if($user->is_admin) return true;
         return $comment->user->is($user);
     }
 
@@ -66,7 +71,6 @@ class CommentsPolicy
      */
     public function delete(User $user, Comments $comment)
     {
-        if($user->is_admin) return true;
         return $comment->user->is($user);
     }
 
@@ -91,6 +95,6 @@ class CommentsPolicy
      */
     public function forceDelete(User $user, Comments $comments)
     {
-        return $user->is_admin;
+        //
     }
 }

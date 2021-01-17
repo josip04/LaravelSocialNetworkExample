@@ -19,7 +19,7 @@ class PostsController extends Controller
     public function index()
     {
         return response()->json([
-            'posts' => Posts::with('comments')->orderBy('created_at', 'desc')->paginate(5)
+            'posts' => Posts::with('comments')->latest()/*->orderBy('created_at', 'desc')*/->paginate(5)
         ]);
     }
 

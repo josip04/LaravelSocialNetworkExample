@@ -70,7 +70,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //if($user || $user->is_admin) return true;
+        /*if($user || $user->is_admin)*/ return true;
     }
 
     /**

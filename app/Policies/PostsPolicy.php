@@ -95,6 +95,6 @@ class PostsPolicy
      */
     public function forceDelete(User $user, Posts $posts)
     {
-        return $user->is_admin;
+        //
     }
 }
